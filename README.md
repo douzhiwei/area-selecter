@@ -27,5 +27,5 @@ export default {
 ```
 
 ## 效果
-<img src="./src/img/demo.png" width = "600" height = "600" /> 
+<img src="./src/img/demo.png" width = "678" height = "404" /> 
 
