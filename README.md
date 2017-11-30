@@ -1,21 +1,31 @@
-# area-selecter
+# 简单,美观,方便的 VUE 地域选择插件
 
-> area-select
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
+## 安装
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+```base
+npm install v-area-selecter --save
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 注册为全局组件
+
+```base
+import VareaSelecter from 'v-area-selecter'
+
+Vue.component('v-areaSelecter', v-area-selecter)
+
+```
+## 注册页面组件
+
+```base
+import VareaSelecter from 'v-area-selecter'
+
+export default {
+  components: { VareaSelecter }
+}
+```
+
+## 效果
+<img src="./src/img/demo.png" width = "300" height = "120" /> 
+
