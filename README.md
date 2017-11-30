@@ -11,18 +11,18 @@ npm install v-area-selecter --save
 ## 注册为全局组件
 
 ```base
-import VareaSelecter from 'v-area-selecter'
+import VAreaSelecter from 'v-area-selecter'
 
-Vue.component('v-areaSelecter', v-area-selecter)
+Vue.component('v-areaSelecter', VAreaSelecter)
 
 ```
 ## 注册页面组件
 
 ```base
-import VareaSelecter from 'v-area-selecter'
+import VAreaSelecter from 'v-area-selecter'
 
 export default {
-  components: { VareaSelecter }
+  components: { VAreaSelecter }
 }
 ```
 
