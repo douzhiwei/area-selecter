@@ -13,18 +13,19 @@
                 areaRes: []
             }
         },
-        methods:{
-            areaResChange(val){
-               console.log(val)
+        methods: {
+            areaResChange(val) {
+                console.log(val)
             }
         }
     }
 </script>
 
 <style>
-#app{
-    width: 100%;
-}
+    #app {
+        width: 100%;
+    }
+
     .left {
         float: left;
     }
