@@ -5,25 +5,16 @@
 ## 安装
 
 ```base
-npm install v-area-selecter --save
+npm install area-selecte --save
 ```
 
 ## 注册为全局组件
 
 ```base
-import VAreaSelecter from 'v-area-selecter'
 
-Vue.component('v-areaSelecter', VAreaSelecter)
+import AreaSelecter from 'area-selecter'
+Vue.use(AreaSelecter)
 
-```
-## 注册页面组件
-
-```base
-import VAreaSelecter from 'v-area-selecter'
-
-export default {
-  components: { VAreaSelecter }
-}
 ```
 
 ## 效果
