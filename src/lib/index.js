@@ -1,8 +1,8 @@
-import AreaSelecter from './area-selecter.vue'
+import areaSelecter from './area-selecter-map'
 
-const Area = {
+const areaSelect = {
     install: function (Vue) {
-        Vue.component('AreaSelecter', AreaSelecter)
+        Vue.component(areaSelecter.name, areaSelecter)
     }
 }
-export default Area
+export default areaSelect

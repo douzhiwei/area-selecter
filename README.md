@@ -1,22 +1,33 @@
-# 简单,美观,方便的 VUE 地域选择插件
+# simple, beautiful, convenience vue area-select plug-in
 
 
-
-## 安装
-
-```base
-npm install area-selecte --save
-```
-
-## 注册为全局组件
+## Install
 
 ```base
-
-import AreaSelecter from 'area-selecter'
-Vue.use(AreaSelecter)
-
+npm install area-selecter --save
 ```
 
-## 效果
+```js
+import areaSelecte from 'area-selecter'
+Vue.use(areaSelecte)
+```
+
+## Usage
+```html
+ <area-select></area-select>
+```
+
+## props
+
+|Prop|Type|Default| Description|
+|:---|:---|:------|:-----------|
+|areaRes|Array| []|backfilldata|
+
+## Event
+|Event|Output| Description |
+|:----|:-----|:------------|
+|res-change|Array|selectCityIds  |
+
+## Result
 <img src="./src/img/demo.png" width = "678" height = "404" /> 
 

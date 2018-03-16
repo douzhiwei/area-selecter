@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <area-selecter ref="areaSelecter" :areaRes="areaRes" @res-change="areaResChange"></area-selecter>
+        <area-select ref="areaSelect" :areaRes="areaRes" @res-change="areaResChange"></area-select>
     </div>
 </template>
 
@@ -10,7 +10,7 @@
         name: 'app',
         data() {
             return {
-                areaRes: ['110000']
+                areaRes: [ "120000", "130000", "140105", "140106", "140107", "140108"]
             }
         },
         methods: {
@@ -19,8 +19,7 @@
             }
         },
         mounted() {
-            this.$refs.areaSelecter.initArea()
-
+            this.$refs.areaSelect.initArea()
         }
     }
 </script>
