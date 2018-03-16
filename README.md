@@ -8,8 +8,8 @@ npm install area-selecter --save
 ```
 
 ```js
-import areaSelecte from 'area-selecter'
-Vue.use(areaSelecte)
+import areaSelect from 'area-selecter'
+Vue.use(areaSelect)
 ```
 
 ## Usage
