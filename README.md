@@ -22,6 +22,7 @@ Vue.use(areaSelect)
 |Prop|Type|Default| Description|
 |:---|:---|:------|:-----------|
 |areaRes|Array| []|backfilldata|
+|dataRource|Obj| {}| data origin|
 
 ## Event
 |Event|Output| Description |

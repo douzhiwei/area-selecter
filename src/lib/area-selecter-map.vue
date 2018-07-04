@@ -65,12 +65,16 @@
         props: {
             areaRes: {
                 type: Array,
-                default: []
+                default: () => []
+            },
+            dataRource: {
+              type: Object,
+              default: () => {}
             }
         },
         data() {
             return {
-                dataList: china,
+                dataList: this.dataRource || china,
                 cityCache: {},
                 countryCache: {},
                 res: this.areaRes
@@ -79,8 +83,11 @@
         watch: {
             //监控选中的数据 像父组件发送
             res(val) {
-                this.$emit('res-change', val);
+                this.$emit('res-change', val)
                 console.log(this.res);
+            },
+            dataRource(val) {
+              this.dataList = val
             }
         },
         methods: {
