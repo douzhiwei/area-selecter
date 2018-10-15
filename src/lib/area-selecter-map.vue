@@ -88,7 +88,7 @@
             //监控选中的数据 像父组件发送
             res(val) {
                 let res = null
-                res = this.index ? { val, index: this.index}  : res
+                res = this.index >= 0 ? { val, index: this.index}  : val
                 this.$emit('res-change', res)
             },
             dataRource(val) {
