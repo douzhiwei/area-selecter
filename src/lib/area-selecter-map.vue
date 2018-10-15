@@ -70,11 +70,15 @@
             dataRource: {
               type: Object,
               default: () => {}
+            },
+            index: {
+             type: Number,
+             default: () => {}
             }
         },
         data() {
             return {
-                dataList: this.dataRource || china,
+                dataList: this.dataRource || JSON.parse(JSON.stringify(china)),
                 cityCache: {},
                 countryCache: {},
                 res: this.areaRes
@@ -83,8 +87,9 @@
         watch: {
             //监控选中的数据 像父组件发送
             res(val) {
-                this.$emit('res-change', val)
-                console.log(this.res);
+                let res = null
+                res = this.index ? { val, index: this.index}  : res
+                this.$emit('res-change', res)
             },
             dataRource(val) {
               this.dataList = val
@@ -262,6 +267,7 @@
                     this.selectChildNode(i, false)
                 }
                 this.calRes()
+                this.dataList = JSON.parse(JSON.stringify(china))
             }
         },
         created() {
