@@ -5,19 +5,19 @@
                 <div class="wrap">
                     <ul class="left">
                         <li class="province-item" v-for="(province, keyProvince) in dataList[100000]">
-                            <input @click="provinceClick(keyProvince)" v-model="province.sel" type="checkbox">
+                            <input @change="provinceClick(keyProvince)" v-model="province.sel" type="checkbox">
                             <span>{{province.name}}</span>
                             <a href="javascript:;" class="checkBtn"
                                @click="addCity(keyProvince)">{{ province.showChild ? '-' : '+' }}</a>
                             <div class="city-item" v-if="province.showChild"
                                  v-for="(city,keyCity) in cityCache[keyProvince]">
-                                <input @click="cityClick(keyCity, keyProvince)" v-model="city.sel" type="checkbox">
+                                <input @change="cityClick(keyCity, keyProvince)" v-model="city.sel" type="checkbox">
                                 <span>{{city.name}}</span>
                                 <a href="javascript:;" class="checkBtn"
                                    @click="addCountry(keyCity, keyProvince)">{{ city.showChild ? '-' : '+'}}</a>
                                 <div v-if="city.showChild" class="county-item"
                                      v-for="(district, keyDistrict) in countryCache[keyCity]">
-                                    <input @click="districtClick(keyDistrict, keyCity, keyProvince)"
+                                    <input @change="districtClick(keyDistrict, keyCity, keyProvince)"
                                            v-model="district.sel" type="checkbox">
                                     <span>{{district.name}}</span>
                                 </div>
