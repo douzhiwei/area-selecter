@@ -23,11 +23,13 @@ Vue.use(areaSelect)
 |:---|:---|:------|:-----------|
 |areaRes|Array| []|backfilldata|
 |dataRource|Obj| {}| data origin|
+|disabled|Boolean| false| disabled|
 
 ## Event
 |Event|Output| Description |
 |:----|:-----|:------------|
-|res-change|Array|selectCityIds  |
+|res-change|Array|[1,2,3]  |
+|input|String| 1,2,3 |
 
 ## Result
 <img src="./src/img/demo.png" width = "678" height = "404" /> 
