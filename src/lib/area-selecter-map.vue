@@ -1,57 +1,40 @@
 <template>
-  <div class="warp-main">
-    <div class="areaWrap">
-      <div class="searchWrap">
-        <div class="wrap">
-          <ul class="left">
-            <li class="province-item" v-for="(province, keyProvince) in dataList[100000]">
-              <input @change="provinceClick(keyProvince)" v-model="province.sel" type="checkbox" :disabled="disabled">
-              <span>{{province.name}}</span>
-              <a href="javascript:;" class="checkBtn"
-                 @click="addCity(keyProvince)">{{ province.showChild ? '-' : '+' }}</a>
-              <div class="city-item" v-if="province.showChild"
-                   v-for="(city,keyCity) in cityCache[keyProvince]">
-                <input @change="cityClick(keyCity, keyProvince)" v-model="city.sel" type="checkbox" :disabled="disabled">
-                <span>{{city.name}}</span>
-                <a href="javascript:;" class="checkBtn"
-                   @click="addCountry(keyCity, keyProvince)">{{ city.showChild ? '-' : '+'}}</a>
-                <div v-if="city.showChild" class="county-item"
-                     v-for="(district, keyDistrict) in countryCache[keyCity]">
-                  <input @change="districtClick(keyDistrict, keyCity, keyProvince)"
-                         v-model="district.sel" type="checkbox" :disabled="disabled">
-                  <span>{{district.name}}</span>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <div class="left">
-            <div class="titleRight">
-              <span>已选择</span>
-              <a v-if="!disabled" style=" float: right;" href="javascript:;" @click="delAll()"
-                 class="delChoice">完全删除</a>
-            </div>
-            <ul class="choiceAll">
-              <li class="province-item" v-for="(province, keyProvince) in dataList[100000]">
-                <span v-if="province.sel">{{province.name}}</span>
-                <a href="javascript:;" class="checkBtn" v-if="province.sel && !disabled"
-                   @click="provinceDel(province, keyProvince)">×</a>
-                <div class="city-item" v-for="(city,keyCity) in cityCache[keyProvince]">
-                  <span v-if="city.sel && !province.sel">{{city.name}}</span>
-                  <a href="javascript:;" class="checkBtn" v-if="city.sel && !province.sel && !disabled"
-                     @click="cityDel(city, keyCity)">×</a>
-                  <div class="county-item"
-                       v-for="(district, keyDistrict) in countryCache[keyCity]">
-                    <span v-if="district.sel&&!city.sel">{{district.name}}</span>
-                    <a href="javascript:;" class="checkBtn"
-                       v-if="district.sel && !city.sel"
-                       @click="dataDistrictClick(district, keyDistrict)">×</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
+  <div class="wrap">
+    <ul class="left">
+      <li class="province-item" v-for="(province, keyProvince) in dataList[100000]">
+        <input @change="provinceClick(keyProvince)" v-model="province.sel" type="checkbox" :disabled="disabled">
+        <span>{{province.name}}</span>
+        <a class="checkBtn" @click="addCity(keyProvince)">{{ province.showChild ? '-' : '+' }}</a>
+        <div class="city-item" v-if="province.showChild" v-for="(city,keyCity) in cityCache[keyProvince]">
+          <input @change="cityClick(keyCity, keyProvince)" v-model="city.sel" type="checkbox" :disabled="disabled">
+          <span>{{city.name}}</span>
+          <a class="checkBtn" @click="addCountry(keyCity, keyProvince)">{{ city.showChild ? '-' : '+'}}</a>
+          <div v-if="city.showChild" class="county-item" v-for="(district, keyDistrict) in countryCache[keyCity]">
+            <input @change="districtClick(keyDistrict, keyCity, keyProvince)" v-model="district.sel" type="checkbox" :disabled="disabled">
+            <span>{{district.name}}</span>
           </div>
         </div>
+      </li>
+    </ul>
+    <div class="left">
+      <div class="titleRight">
+        <span>已选择</span>
+        <a v-if="!disabled" @click="delAll()" class="delChoice right">完全删除</a>
       </div>
+      <ul class="choiceAll">
+        <li class="province-item" v-for="(province, keyProvince) in dataList[100000]">
+          <span v-if="province.sel">{{province.name}}</span>
+          <a class="checkBtn" v-if="province.sel && !disabled" @click="provinceDel(province, keyProvince)">×</a>
+          <div class="city-item" v-for="(city,keyCity) in cityCache[keyProvince]">
+            <span v-if="city.sel && !province.sel">{{city.name}}</span>
+            <a class="checkBtn" v-if="city.sel && !province.sel && !disabled" @click="cityDel(city, keyCity)">×</a>
+            <div class="county-item" v-for="(district, keyDistrict) in countryCache[keyCity]">
+              <span v-if="district.sel&&!city.sel">{{district.name}}</span>
+              <a class="checkBtn" v-if="district.sel && !city.sel" @click="dataDistrictClick(district, keyDistrict)">×</a>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -278,7 +261,7 @@
           this.selectChildNode(i, false)
         }
         this.calRes()
-        this.dataList = JSON.parse(JSON.stringify(china))
+        this.dataList = JSON.parse(JSON.stringify(this.dataRource || china))
       }
     },
     mounted () {
@@ -296,98 +279,76 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .areaWrap {
-    .searchWrap {
-      position: relative;
-
-      .wrap {
-        ul {
-          overflow: auto;
-          height: 600px;
+  .wrap {
+    ul {
+      overflow: auto;
+      height: 600px;
+    }
+    .left {
+      border: 1px solid #c3c3c5;
+      width: 240px;
+      height: 280px;
+      margin-right: 10px;
+      float: left;
+      li {
+        margin: 5px 10px;
+        display: block;
+        line-height: 30px;
+        a {
+          float: right;
+          width: 12px;
+          height: 12px;
+          text-align: center;
+          font-size: 12px;
+          color: #a8a8aa;
+          margin-top: 10px;
+          line-height: 8px;
+          border: 1px solid #a8a8aa;
         }
-
-        .left {
-          border: 1px solid #c3c3c5;
-          width: 240px;
-          height: 280px;
-          margin-right: 10px;
-          float: left;
-
-          li {
-            margin: 5px 10px;
-            display: block;
-            line-height: 30px;
-
-            a {
-              float: right;
-              width: 12px;
-              height: 12px;
-              text-align: center;
-              font-size: 12px;
-              color: #a8a8aa;
-              margin-top: 10px;
-              line-height: 8px;
-              border: 1px solid #a8a8aa;
-            }
-
-            .city-item {
-              margin-left: 25px;
-
-              .county-item {
-                margin-left: 25px;
-              }
-            }
-          }
-
-          &:last-child {
-            a {
-              border: 0;
-            }
-          }
-
-          .titleRight {
-            line-height: 40px;
-            height: 40px;
-            background-color: #e5e6e8;
-            padding: 0 10px;
-
-            > {
-              .delChoice {
-                color: rgb(150, 170, 200);
-              }
-
-              span {
-                display: inline-block;
-              }
-            }
-          }
-
-          .choiceAll {
-            height: 240px;
-            overflow: auto;
+        .city-item {
+          margin-left: 25px;
+          .county-item {
+            margin-left: 25px;
           }
         }
       }
+      &:last-child {
+        a {
+          border: 0;
+        }
+      }
+      .titleRight {
+        line-height: 40px;
+        height: 40px;
+        background-color: #e5e6e8;
+        padding: 0 10px;
+        > {
+          .delChoice {
+            color: rgb(150, 170, 200);
+          }
+          span {
+            display: inline-block;
+          }
+        }
+      }
+      .choiceAll {
+        height: 240px;
+        overflow: auto;
+      }
     }
   }
-
   .right {
     float: right;
   }
-
   /*重置样式*/
   * {
     margin: 0;
     padding: 0
   }
-
   li {
     list-style: none
   }
-
   a, a:hover, a:focus {
     text-decoration: none;
   }
-
-
 </style>
