@@ -84,9 +84,7 @@
         this.dataList = val
       },
       areaRes (v) {
-        if (v.length) {
-          this.initArea()
-        }
+        this.initArea()
       }
     },
     methods: {
@@ -201,6 +199,7 @@
       },
 
       initArea () {
+        this.delAll()
         this.$nextTick(() => {
           this.areaRes.forEach(item => {
             for (let pro in this.dataList[ALLPROVINCE]) {
@@ -233,6 +232,7 @@
               }
             }
           })
+          this.calRes()
         })
       },
 
