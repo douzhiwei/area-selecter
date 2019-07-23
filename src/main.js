@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App'
-import areaSelect from './lib/index.js'
+import areaSelect from '../dist/area-selecter'
 
 Vue.use(areaSelect)
 

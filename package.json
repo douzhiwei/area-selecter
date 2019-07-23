@@ -1,16 +1,16 @@
 {
   "name": "area-selecter",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "area-select",
   "author": "douzhiwei",
   "private": false,
   "license": "MIT",
   "repository": "https://github.com/douzhiwei/area-selecter",
-  "main": "src/lib/index.js",
+  "main": "dist/area-selecter.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node webpack.config.js"
   },
   "dependencies": {
     "node-sass": "^4.7.2",

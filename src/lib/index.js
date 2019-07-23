@@ -1,4 +1,4 @@
-import areaSelecter from './area-selecter-map'
+import areaSelecter from './area-selecter-map.vue'
 
 const areaSelect = {
     install: function (Vue) {
