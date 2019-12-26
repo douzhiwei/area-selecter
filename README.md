@@ -17,6 +17,18 @@ Vue.use(areaSelect)
  <area-select></area-select>
 ```
 
+
+
+## v-model
+
+```html
+ <area-select v-model="string"></area-select>
+```
+
+> use v-model Implementing two-way binding
+
+
+
 ## props
 
 |Prop|Type|Default| Description|
@@ -29,7 +41,6 @@ Vue.use(areaSelect)
 |Event|Output| Description |
 |:----|:-----|:------------|
 |res-change|Array|[1,2,3]  |
-|input|String| 1,2,3 |
 
 ## Result
 <img src="./src/img/demo.png" width = "678" height = "404" /> 

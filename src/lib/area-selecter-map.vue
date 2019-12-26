@@ -45,6 +45,10 @@
 
   export default {
     name: 'area-select',
+    model: {
+      prop: 'VModelValue',
+      event: 'input'
+    },
     props: {
       areaRes: {
         type: Array,
@@ -61,6 +65,10 @@
       disabled: {
         type: Boolean,
         default: () => false
+      },
+      VModelValue: {
+        type: String,
+        default: ''
       }
     },
     data () {
@@ -84,7 +92,7 @@
         this.dataList = val
       },
       areaRes (v) {
-        this.initArea()
+        this.initArea(v)
       }
     },
     methods: {
@@ -198,10 +206,11 @@
         }
       },
 
-      initArea () {
+      initArea (array) {
+        console.log(array)
         this.delAll()
         this.$nextTick(() => {
-          this.areaRes.forEach(item => {
+          array.forEach(item => {
             for (let pro in this.dataList[ALLPROVINCE]) {
               // 第一层 省
               if (item === pro) {
@@ -266,7 +275,10 @@
     },
     mounted () {
       if (this.areaRes.length) {
-        this.initArea()
+        this.initArea(this.areaRes)
+      }
+      if (!this.areaRes.length && this.VModelValue.length) {
+        this.initArea(this.VModelValue.split(','))
       }
     },
     beforeDestroy() {
