@@ -61,6 +61,10 @@
       disabled: {
         type: Boolean,
         default: () => false
+      },
+      value: {
+        type: String,
+        default: ''
       }
     },
     data () {
@@ -84,7 +88,7 @@
         this.dataList = val
       },
       areaRes (v) {
-        this.initArea()
+        this.initArea(v)
       }
     },
     methods: {
@@ -198,10 +202,10 @@
         }
       },
 
-      initArea () {
+      initArea (target) {
         this.delAll()
         this.$nextTick(() => {
-          this.areaRes.forEach(item => {
+          target.forEach(item => {
             for (let pro in this.dataList[ALLPROVINCE]) {
               // 第一层 省
               if (item === pro) {
@@ -265,8 +269,11 @@
       }
     },
     mounted () {
+      if (this.value.length) {
+        this.initArea(this.value.split(','))
+      }
       if (this.areaRes.length) {
-        this.initArea()
+        this.initArea(this.areaRes)
       }
     },
     beforeDestroy() {
