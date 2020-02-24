@@ -1,15 +1,15 @@
 <template>
   <div class="wrap">
     <ul class="left">
-      <li class="province-item" v-for="(province, keyProvince) in dataList[100000]">
+      <li class="province-item" v-for="(province, keyProvince) in dataList[100000]" :key="province.code">
         <input @change="provinceClick(keyProvince)" v-model="province.sel" type="checkbox" :disabled="disabled">
         <span>{{province.name}}</span>
-        <a class="checkBtn" @click="addCity(keyProvince)">{{ province.showChild ? '-' : '+' }}</a>
-        <div class="city-item" v-if="province.showChild" v-for="(city,keyCity) in cityCache[keyProvince]">
+        <a class="checkBtn" v-if="hasSecondChild" @click="addCity(keyProvince)">{{ province.showChild ? '-' : '+' }}</a>
+        <div class="city-item" v-if="province.showChild" v-for="(city,keyCity) in cityCache[keyProvince]" :key="city.code">
           <input @change="cityClick(keyCity, keyProvince)" v-model="city.sel" type="checkbox" :disabled="disabled">
           <span>{{city.name}}</span>
-          <a class="checkBtn" @click="addCountry(keyCity, keyProvince)">{{ city.showChild ? '-' : '+'}}</a>
-          <div v-if="city.showChild" class="county-item" v-for="(district, keyDistrict) in countryCache[keyCity]">
+          <a class="checkBtn" v-if="hasThirdChild" @click="addCountry(keyCity, keyProvince)">{{ city.showChild ? '-' : '+'}}</a>
+          <div v-if="city.showChild" class="county-item" v-for="(district, keyDistrict) in countryCache[keyCity]" :key="district.code">
             <input @change="districtClick(keyDistrict, keyCity, keyProvince)" v-model="district.sel" type="checkbox" :disabled="disabled">
             <span>{{district.name}}</span>
           </div>
@@ -76,7 +76,9 @@
         dataList: this.dataRource || JSON.parse(JSON.stringify(china)),
         cityCache: {},
         countryCache: {},
-        res: []
+        res: [],
+        hasThirdChild: true,
+        hasSecondChild: true
       }
     },
     watch: {
@@ -100,6 +102,13 @@
       addCity (keyProvince) {
         this.dataList[ALLPROVINCE][keyProvince].showChild = !this.dataList[ALLPROVINCE][keyProvince].showChild
         this.$set(this.cityCache, keyProvince, this.dataList[keyProvince])
+        // 判断是不是有第三级
+        if (this.dataList[keyProvince]) {
+          const child = this.dataList[keyProvince]
+          if(!this.dataList[Object.keys(child)[0]]) {
+            this.hasThirdChild = false
+          }
+        }
       },
       // 市级添加
       addCountry (keyCity, keyProvince) {
@@ -279,6 +288,11 @@
       }
       if (!this.areaRes.length && this.VModelValue.length) {
         this.initArea(this.VModelValue.split(','))
+      }
+      // 判断是不是有第二级
+      const childId = Object.keys(this.dataList['100000'])[0]
+      if(!this.dataList[childId]) {
+        this.hasSecondChild = false
       }
     },
     beforeDestroy() {
