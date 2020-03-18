@@ -4,7 +4,7 @@ module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, "../src/main.js"),
   devServer: {
-    port: 8080,
+    port: 9000,
     compress: true,
     contentBase: path.resolve(__dirname, '../dist')
   },
