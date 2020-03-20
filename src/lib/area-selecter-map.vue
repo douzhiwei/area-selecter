@@ -293,10 +293,7 @@
       this.findChild(this.dataList[ALLPROVINCE])
     },
     beforeDestroy() {
-      this.dataList = null
-      this.countryCache = null
-      this.cityCache = null
-      this.res = null
+      this.delAll()
     }
   }
 </script>
