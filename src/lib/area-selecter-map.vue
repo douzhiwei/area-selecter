@@ -109,6 +109,7 @@
       },
       // 省级点击
       provinceClick (key) {
+        this.emitCurrentItem({id: key, ...this.dataList[ALLPROVINCE][key]})
         this.$nextTick(() => {
           if (this.dataList[ALLPROVINCE][key].sel) {
             this.selectChildNode(key, true)
@@ -121,6 +122,7 @@
 
       //市级点击
       cityClick (keyCity, keyProvince) {
+        this.emitCurrentItem({id: keyCity, ...this.dataList[keyProvince][keyCity]})
         this.$nextTick(() => {
           if (this.dataList[keyProvince][keyCity].sel) {
             this.selectChildNode(keyCity, true)
@@ -133,7 +135,17 @@
 
       //区级点击
       districtClick (keyDistrict, keyCity, keyProvince) {
+        this.emitCurrentItem({id: keyDistrict, ...this.dataList[keyCity][keyDistrict]})
         this.selectParentNodeDis(this.dataList[keyCity], keyProvince, keyCity)
+      },
+
+      // 发送当然选择的item
+      emitCurrentItem(val) {
+        this.$emit('current-item', {
+          id: val.id,
+          name: val.name,
+          select: val.sel
+        })
       },
 
       // 计算res

@@ -1,7 +1,7 @@
-# simple, beautiful, convenience vue area-select plug-in
+# vue 三级联动地域选择 多选
 
 
-## Install
+## 安装
 
 ```base
 npm install area-selecter --save
@@ -12,36 +12,27 @@ import areaSelect from 'area-selecter'
 Vue.use(areaSelect)
 ```
 
-## Usage
-```html
- <area-select></area-select>
-```
-
-
-
-## v-model
-
+## 使用
 ```html
  <area-select v-model="string"></area-select>
 ```
-
-> use v-model Implementing two-way binding
-
-
 
 ## props
 
 |Prop|Type|Default| Description|
 |:---|:---|:------|:-----------|
-|areaRes|Array| []|backfilldata|
-|dataRource|Obj| {}| data origin|
-|disabled|Boolean| false| disabled|
+|areaRes|Array| []|数据回填|
+|dataRource|Obj| {}| 数据源 |
+|disabled|Boolean| false| 是否禁用 |
+|value(v-model)|String| '' | 数据回填 |
 
-## Event
+## 事件
 |Event|Output| Description |
 |:----|:-----|:------------|
 |res-change|Array|[1,2,3]  |
+|input||1,2,3 |
+|current-item|Object|{id: 123,  name:北京, selected:true} |
 
-## Result
+## demo
 <img src="./src/img/demo.png" width = "678" height = "404" /> 
 
