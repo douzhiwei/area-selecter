@@ -21,7 +21,7 @@
     // },
     data() {
       return {
-        areaResString: '110101,110105',
+        areaResString: '',
         otherDataSet: {
           "1": {
             "8": {"name": "高校", "sel": false, "showChild": false},
@@ -75,6 +75,11 @@
           }
         }
       }
+    },
+    mounted() {
+      setTimeout(() => {
+        this.areaResString = '110101,110105'
+      }, 2000)
     }
   }
 </script>

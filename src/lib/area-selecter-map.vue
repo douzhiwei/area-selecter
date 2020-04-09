@@ -22,13 +22,13 @@
         <a v-if="!disabled" @click="delAll()" class="delChoice right">完全删除</a>
       </div>
       <ul class="choiceAll">
-        <li class="province-item" v-for="(province, keyProvince) in dataList[100000]">
+        <li class="province-item" v-for="(province, keyProvince) in dataList[100000]" :key="province.code">
           <span v-if="province.sel">{{province.name}}</span>
           <a class="checkBtn" v-if="province.sel && !disabled" @click="provinceDel(province, keyProvince)">×</a>
-          <div class="city-item" v-for="(city,keyCity) in cityCache[keyProvince]">
+          <div class="city-item" v-for="(city,keyCity) in cityCache[keyProvince]" :key="city.code">
             <span v-if="city.sel && !province.sel">{{city.name}}</span>
             <a class="checkBtn" v-if="city.sel && !province.sel && !disabled" @click="cityDel(city, keyCity)">×</a>
-            <div class="county-item" v-for="(district, keyDistrict) in countryCache[keyCity]">
+            <div class="county-item" v-for="(district, keyDistrict) in countryCache[keyCity]" :key="district.code">
               <span v-if="district.sel&&!city.sel">{{district.name}}</span>
               <a class="checkBtn" v-if="district.sel && !city.sel" @click="dataDistrictClick(district, keyDistrict)">×</a>
             </div>
@@ -80,7 +80,7 @@
       }
     },
     watch: {
-      //监控选中的数据 像父组件发送
+      // 监控选中的数据 像父组件发送
       res (val) {
         let res = null
         res = this.index >= 0 ? {val, index: this.index} : val
@@ -92,7 +92,14 @@
         this.dataList = val
       },
       areaRes (v) {
+        this.watchModelValueOnce = true
         this.initArea(v)
+      },
+      VModelValue(v) {
+        if (v && !this.watchModelValueOnce) {
+          this.watchModelValueOnce = true
+          this.initArea(v.split(','))
+        }
       }
     },
     methods: {
@@ -120,7 +127,7 @@
         this.calRes()
       },
 
-      //市级点击
+      // 市级点击
       cityClick (keyCity, keyProvince) {
         this.emitCurrentItem({id: keyCity, ...this.dataList[keyProvince][keyCity]})
         this.$nextTick(() => {
@@ -133,7 +140,7 @@
         this.selectParentNode(this.dataList[keyProvince], keyProvince)
       },
 
-      //区级点击
+      // 区级点击
       districtClick (keyDistrict, keyCity, keyProvince) {
         this.emitCurrentItem({id: keyDistrict, ...this.dataList[keyCity][keyDistrict]})
         this.selectParentNodeDis(this.dataList[keyCity], keyProvince, keyCity)
@@ -219,7 +226,7 @@
       },
 
       initArea (array) {
-        console.log(array)
+        console.log('init', array)
         this.delAll()
         this.$nextTick(() => {
           array.forEach(item => {
@@ -254,10 +261,11 @@
             }
           })
           this.calRes()
+          this.findChild(this.dataList[ALLPROVINCE])
         })
       },
 
-      //省级删除
+      // 省级删除
       provinceDel (data, key) {
         data.sel = false
         this.selectChildNode(key, false)
@@ -269,13 +277,13 @@
         this.selectChildNode(key, false)
         this.calRes()
       },
-      //区域删除
+      // 区域删除
       dataDistrictClick (data, key) {
         data.sel = false
         this.selectChildNode(key, false)
         this.calRes()
       },
-      //删除所有
+      // 删除所有
       delAll () {
         for (let i in this.dataList[ALLPROVINCE]) {
           this.dataList[ALLPROVINCE][i].sel = false
@@ -297,9 +305,11 @@
     },
     mounted () {
       if (this.areaRes.length) {
+        this.watchModelValueOnce = true
         this.initArea(this.areaRes)
       }
-      if (!this.areaRes.length && this.VModelValue.length) {
+      if (this.VModelValue.length) {
+        this.watchModelValueOnce = true
         this.initArea(this.VModelValue.split(','))
       }
       this.findChild(this.dataList[ALLPROVINCE])
