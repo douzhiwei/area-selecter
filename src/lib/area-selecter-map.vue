@@ -1,14 +1,14 @@
 <template>
-  <div class="wrap">
-    <ul class="left">
+  <div class="area-select-wrap">
+    <ul class="province-wrap">
       <li class="province-item" v-for="(province, keyProvince) in dataList[100000]" :key="province.code">
         <input @change="provinceClick(keyProvince)" v-model="province.sel" type="checkbox" :disabled="disabled">
         <span>{{province.name}}</span>
-        <a class="checkBtn" v-if="province.hasChild" @click="addCity(keyProvince)">{{ province.showChild ? '-' : '+' }}</a>
+        <a v-if="province.hasChild" @click="addCity(keyProvince)">{{ province.showChild ? '-' : '+' }}</a>
         <div class="city-item" v-if="province.showChild" v-for="(city,keyCity) in cityCache[keyProvince]" :key="city.code">
           <input @change="cityClick(keyCity, keyProvince)" v-model="city.sel" type="checkbox" :disabled="disabled">
           <span>{{city.name}}</span>
-          <a class="checkBtn" v-if="city.hasChild" @click="addCountry(keyCity, keyProvince)">{{ city.showChild ? '-' : '+'}}</a>
+          <a v-if="city.hasChild" @click="addCountry(keyCity, keyProvince)">{{ city.showChild ? '-' : '+'}}</a>
           <div v-if="city.showChild" class="county-item" v-for="(district, keyDistrict) in countryCache[keyCity]" :key="district.code">
             <input @change="districtClick(keyDistrict, keyCity, keyProvince)" v-model="district.sel" type="checkbox" :disabled="disabled">
             <span>{{district.name}}</span>
@@ -16,21 +16,21 @@
         </div>
       </li>
     </ul>
-    <div class="left">
-      <div class="titleRight">
+    <div class="province-wrap">
+      <div class="title-right">
         <span>已选择</span>
-        <a v-if="!disabled" @click="delAll()" class="delChoice right">完全删除</a>
+        <a v-if="!disabled" @click="delAll()" class="del-choice right">完全删除</a>
       </div>
-      <ul class="choiceAll">
+      <ul class="choice-all">
         <li class="province-item" v-for="(province, keyProvince) in dataList[100000]" :key="province.code">
           <span v-if="province.sel">{{province.name}}</span>
-          <a class="checkBtn" v-if="province.sel && !disabled" @click="provinceDel(province, keyProvince)">×</a>
+          <a v-if="province.sel && !disabled" @click="provinceDel(province, keyProvince)">×</a>
           <div class="city-item" v-for="(city,keyCity) in cityCache[keyProvince]" :key="city.code">
             <span v-if="city.sel && !province.sel">{{city.name}}</span>
-            <a class="checkBtn" v-if="city.sel && !province.sel && !disabled" @click="cityDel(city, keyCity)">×</a>
+            <a v-if="city.sel && !province.sel && !disabled" @click="cityDel(city, keyCity)">×</a>
             <div class="county-item" v-for="(district, keyDistrict) in countryCache[keyCity]" :key="district.code">
               <span v-if="district.sel&&!city.sel">{{district.name}}</span>
-              <a class="checkBtn" v-if="district.sel && !city.sel" @click="dataDistrictClick(district, keyDistrict)">×</a>
+              <a v-if="district.sel && !city.sel" @click="dataDistrictClick(district, keyDistrict)">×</a>
             </div>
           </div>
         </li>
@@ -321,12 +321,12 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  .wrap {
+  .area-select-wrap {
     ul {
       overflow: auto;
       height: 600px;
     }
-    .left {
+    .province-wrap {
       border: 1px solid #c3c3c5;
       width: 240px;
       height: 280px;
@@ -359,13 +359,13 @@
           border: 0;
         }
       }
-      .titleRight {
+      .title-right {
         line-height: 40px;
         height: 40px;
         background-color: #e5e6e8;
         padding: 0 10px;
         > {
-          .delChoice {
+          .del-choice {
             color: rgb(150, 170, 200);
           }
           span {
@@ -373,7 +373,7 @@
           }
         }
       }
-      .choiceAll {
+      .choice-all {
         height: 240px;
         overflow: auto;
       }
