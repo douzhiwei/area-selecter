@@ -19,7 +19,7 @@
     <div class="province-wrap">
       <div class="title-right">
         <span>已选择</span>
-        <a v-if="!disabled" @click="delAll()" class="del-choice right">完全删除</a>
+        <a v-if="!disabled" @click="delAll()" class="del-choice">完全删除</a>
       </div>
       <ul class="choice-all">
         <li class="province-item" v-for="(province, keyProvince) in dataList[100000]" :key="province.code">
@@ -367,6 +367,7 @@
         > {
           .del-choice {
             color: rgb(150, 170, 200);
+            float: right;
           }
           span {
             display: inline-block;
@@ -378,9 +379,6 @@
         overflow: auto;
       }
     }
-  }
-  .right {
-    float: right;
   }
   /*重置样式*/
   * {
